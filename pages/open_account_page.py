@@ -14,6 +14,11 @@ class OpenAccountPage(BasePage):
         type_dropdown = Select(self.find_element(self.ACCOUNT_TYPE))
         type_dropdown.select_by_visible_text(account_type)
 
+        # wait until the 'From Account' dropdown populates with account options
+        self.wait.until(
+            lambda d: len(Select(self.find_element(self.FROM_ACCOUNT)).options) > 0
+        )
+
         # deposit account
         from_dropdown = Select(self.find_element(self.FROM_ACCOUNT))
         from_dropdown.select_by_index(from_account_index)

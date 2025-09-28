@@ -7,10 +7,10 @@ class AccountOverviewPage(BasePage):
     ACCOUNT_TABLE = (By.ID, "accountTable")
     ACCOUNT_NUMBERS = (
         By.XPATH,
-        "//table[@id='accountTable']//tr[position()>1]/td[1]/a",
+        "//table[@id='accountTable']//tbody/tr[td[a]]/td[1]/a",
     )
-    ACCOUNT_BALANCES = (By.XPATH, "//table[@id='accountTable']//tr[position()>1]/td[2]")
-    TOTAL_BALANCES = (By.XPATH, "//table[@id='accountTable']//tr[last()]/td[2]/b")
+    ACCOUNT_BALANCES = (By.XPATH, "//table[@id='accountTable']//tbody/tr[td[a]]/td[2]")
+    TOTAL_BALANCE = (By.XPATH, "//table[@id='accountTable']//tr[last()]/td[2]/b")
 
     # Navigation Links
     OPEN_ACCOUNT_LINK = (By.LINK_TEXT, "Open New Account")
@@ -19,7 +19,7 @@ class AccountOverviewPage(BasePage):
     LOGOUT_LINK = (By.LINK_TEXT, "Log Out")
 
     def get_account_numbers(self):
-        account_elements = self.driver.find_elements(*self.ACCOUNT_NUMBERS)
+        account_elements = self.find_elements(self.ACCOUNT_NUMBERS)
         return [element.text for element in account_elements]
 
     def get_account_balances(self):
