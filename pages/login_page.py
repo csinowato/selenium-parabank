@@ -6,6 +6,7 @@ class LoginPage(BasePage):
     USERNAME_INPUT = (By.NAME, "username")
     PASSWORD_INPUT = (By.NAME, "password")
     LOGIN_BUTTON = (By.CSS_SELECTOR, ".login .button")
+    LOGOUT_BUTTON = (By.LINK_TEXT, "Log Out")
     REGISTER_LINK = (By.LINK_TEXT, "Register")
     ERROR_MESSAGE = (By.CLASS_NAME, "error")
 
@@ -18,4 +19,10 @@ class LoginPage(BasePage):
         self.click(self.REGISTER_LINK)
 
     def get_error_message(self):
-        self.get_text(self.ERROR_MESSAGE)
+        return self.get_text(self.ERROR_MESSAGE)
+
+    def is_logout_button_visible(self):
+        return self.find_element(self.LOGOUT_BUTTON).is_displayed()
+
+    def is_login_form_visible(self):
+        return self.find_element(self.USERNAME_INPUT).is_displayed()

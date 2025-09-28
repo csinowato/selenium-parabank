@@ -15,4 +15,4 @@ def driver():
 
 @pytest.fixture
 def base_url():
-    "https://parabank.parasoft.com/parabank"
+    return "https://parabank.parasoft.com/parabank"
