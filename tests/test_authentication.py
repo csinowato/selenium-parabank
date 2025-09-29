@@ -49,3 +49,13 @@ class TestAuthentication:
 
         # confirm that logout redirects to login page
         assert login_page.is_login_form_visible()
+
+    def test_access_control(self, driver, base_url):
+        # verify that user can't access accounts page without login
+        driver.get(f"{base_url}/overview.htm")
+        login_page = LoginPage(driver)
+
+        # confirm that the user is still on the login page and an error is shown
+        assert login_page.is_login_form_visible()
+        error_message = login_page.get_error_message()
+        assert "error" in error_message
