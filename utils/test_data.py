@@ -23,11 +23,12 @@ class TestData:
         }
 
     # sample payee data
-    ELECTRIC_COMPANY = {
+    SAMPLE_PAYEE = {
         "name": "Electric Company",
         "address": "123 Power St",
         "city": "Energy City",
         "state": "CA",
         "zip_code": "54321",
         "phone": "555-POWER",
+        "account_number": "12345",
     }

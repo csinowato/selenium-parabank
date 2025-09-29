@@ -7,20 +7,22 @@ class TransferFundsPage(BasePage):
     AMOUNT_INPUT = (By.ID, "amount")
     FROM_ACCOUNT = (By.ID, "fromAccountId")
     TO_ACCOUNT = (By.ID, "toAccountId")
+    FROM_ACCOUNT_OPTIONS = (By.CSS_SELECTOR, "#fromAccountId option")
+    TO_ACCOUNT_OPTIONS = (By.CSS_SELECTOR, "#toAccountId option")
     TRANSFER_BUTTON = (By.CSS_SELECTOR, "input[value='Transfer']")
-    CONFIRMATION_MESSAGE = (By.CSS_SELECTOR, "#showResult p")
-    ERROR_MESSAGE = (By.CLASS_NAME, "error")
+    CONFIRMATION_MESSAGE = (By.CSS_SELECTOR, "#showResult .title")
+    ERROR_MESSAGE = (By.CSS_SELECTOR, "#showError .title")
 
     def transfer_funds(self, amount, from_account_index=0, to_account_index=1):
         self.send_keys(self.AMOUNT_INPUT, (str(amount)))
 
-        # from account
-        from_dropdown = Select(self.find_element(self.FROM_ACCOUNT))
-        from_dropdown.select_by_index(from_account_index)
+        # wait for FROM account to load options, then select
+        self.wait.until(lambda d: len(d.find_elements(*self.FROM_ACCOUNT_OPTIONS)) > 0)
+        Select(self.find_element(self.FROM_ACCOUNT)).select_by_index(from_account_index)
 
-        # to account
-        to_dropdown = Select(self.find_element(self.TO_ACCOUNT))
-        to_dropdown.select_by_index(to_account_index)
+        # wait for TO to load options after FROM is selected
+        self.wait.until(lambda d: len(d.find_elements(*self.TO_ACCOUNT_OPTIONS)) > 0)
+        Select(self.find_element(self.TO_ACCOUNT)).select_by_index(to_account_index)
 
         self.click(self.TRANSFER_BUTTON)
 

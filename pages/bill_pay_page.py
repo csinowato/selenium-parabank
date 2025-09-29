@@ -18,16 +18,15 @@ class BillPayPage(BasePage):
     SEND_PAYMENT_BUTTON = (By.CSS_SELECTOR, "input[value='Send Payment']")
     CONFIRMATION_MESSAGE = (By.CSS_SELECTOR, "#billpayResult p")
 
-    def pay_bill(self, payee_data, amount, account_number, from_account_index=0):
+    def pay_bill(self, payee_data, amount, from_account_index=0):
         self.send_keys(self.PAYEE_NAME, payee_data["name"])
         self.send_keys(self.PAYEE_ADDRESS, payee_data["address"])
         self.send_keys(self.PAYEE_CITY, payee_data["city"])
         self.send_keys(self.PAYEE_STATE, payee_data["state"])
         self.send_keys(self.PAYEE_ZIP, payee_data["zip_code"])
         self.send_keys(self.PAYEE_PHONE, payee_data["phone"])
-
-        self.send_keys(self.ACCOUNT_NUMBER, account_number)
-        self.send_keys(self.VERIFY_ACCOUNT, account_number)
+        self.send_keys(self.ACCOUNT_NUMBER, payee_data["account_number"])
+        self.send_keys(self.VERIFY_ACCOUNT, payee_data["account_number"])
         self.send_keys(self.AMOUNT, str(amount))
 
         from_dropdown = Select(self.find_element(self.FROM_ACCOUNT_SELECT))
