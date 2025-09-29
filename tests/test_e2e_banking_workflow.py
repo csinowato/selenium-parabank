@@ -9,6 +9,8 @@ from utils.test_data import TestData
 import time
 
 
+@pytest.mark.smoke
+@pytest.mark.regression
 @pytest.mark.e2e
 class TestE2EBankingWorkflow:
 

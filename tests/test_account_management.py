@@ -5,6 +5,7 @@ from pages.open_account_page import OpenAccountPage
 from utils.test_data import TestData
 
 
+@pytest.mark.regression
 class TestAccountManagement:
 
     @pytest.fixture(autouse=True)

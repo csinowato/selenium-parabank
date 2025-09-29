@@ -7,6 +7,8 @@ from utils.test_data import TestData
 import time
 
 
+@pytest.mark.regression
+@pytest.mark.transactions
 class TestTransactions:
 
     @pytest.fixture(autouse=True)

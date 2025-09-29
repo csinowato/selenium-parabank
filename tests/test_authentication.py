@@ -5,6 +5,8 @@ from pages.account_overview_page import AccountOverviewPage
 from utils.test_data import TestData
 
 
+@pytest.mark.regression
+@pytest.mark.authentication
 class TestAuthentication:
     def test_valid_login(self, driver, base_url):
         driver.get(base_url)
