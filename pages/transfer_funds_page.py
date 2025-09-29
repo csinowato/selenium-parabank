@@ -13,16 +13,17 @@ class TransferFundsPage(BasePage):
     CONFIRMATION_MESSAGE = (By.CSS_SELECTOR, "#showResult .title")
     ERROR_MESSAGE = (By.CSS_SELECTOR, "#showError .title")
 
-    def transfer_funds(self, amount, from_account_index=0, to_account_index=1):
+    def transfer_funds(self, amount, from_account_index=0):
         self.send_keys(self.AMOUNT_INPUT, (str(amount)))
 
         # wait for FROM account to load options, then select
         self.wait.until(lambda d: len(d.find_elements(*self.FROM_ACCOUNT_OPTIONS)) > 0)
         Select(self.find_element(self.FROM_ACCOUNT)).select_by_index(from_account_index)
 
-        # wait for TO to load options after FROM is selected
+        # wait for TO to load options, then select the last account by default
         self.wait.until(lambda d: len(d.find_elements(*self.TO_ACCOUNT_OPTIONS)) > 0)
-        Select(self.find_element(self.TO_ACCOUNT)).select_by_index(to_account_index)
+        account_numbers = Select(self.find_element(self.TO_ACCOUNT))
+        account_numbers.select_by_index(len(account_numbers.options) - 1)
 
         self.click(self.TRANSFER_BUTTON)
 
