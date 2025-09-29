@@ -40,3 +40,6 @@ class AccountOverviewPage(BasePage):
 
     def logout(self):
         self.click(self.LOGOUT_LINK)
+
+    def is_logout_button_visible(self):
+        return self.find_element(self.LOGOUT_LINK).is_displayed()
